@@ -5,6 +5,7 @@ import { Wallet } from './entities/wallet.entity';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { CreateWalletAssetDto } from './dto/create-wallet-asset.dto';
 import { WalletAsset } from './entities/wallet-asset.entity';
+import { Asset } from 'src/assets/entities/asset.entity';
 
 @Injectable()
 export class WalletsService {
@@ -29,12 +30,14 @@ export class WalletsService {
         path: 'assets',
         populate: ['asset'],
       },
-    ]);
+    ]) as Promise<
+      (Wallet & { assets: (WalletAsset & { asset: Asset })[] }) | null
+    >;
   }
 
   async createWalletAsset(data: CreateWalletAssetDto) {
     const session = await this.connection.startSession();
-    await session.startTransaction();
+    session.startTransaction();
     try {
       const docs = await this.walletAssetSchema.create(
         [
@@ -56,7 +59,7 @@ export class WalletsService {
       await session.commitTransaction();
       return walletAsset;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       await session.abortTransaction();
       throw error;
     } finally {
