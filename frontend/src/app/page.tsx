@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Button,
   Table,
@@ -7,22 +9,23 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import { Wallet } from "@/model";
-import Image from "next/image";
+import { AssetShow } from "@/components/AssetShow";
+import { WalletList } from "@/components/WalletList";
 
-export async function getMyWallet(walletId: string): Promise<Wallet> {
-  const response = await fetch(`http://localhost:3000/wallets/${walletId}`);
-  const data = await response.json();
-  return data;
-}
+import { getMyWallet } from "@/queries";
 
-export default async function MyWallet({
-  searchParams,
-}: {
-  searchParams: Promise<{ wallet_id: string }>;
-}) {
+type MyWalletProps = { searchParams: Promise<{ wallet_id: string }> };
+
+export default async function MyWallet({ searchParams }: MyWalletProps) {
   const { wallet_id } = await searchParams;
+  if (!wallet_id) {
+    return <WalletList />;
+  }
+
   const wallet = await getMyWallet(wallet_id);
+  if (!wallet) {
+    return <WalletList />;
+  }
 
   return (
     <div className="flex flex-col space-y-5 flex-grow">
@@ -41,25 +44,17 @@ export default async function MyWallet({
             {wallet.assets.map((walletAsset, key) => (
               <TableRow key={key}>
                 <TableCell>
-                  <div className="flex space-x-1">
-                    <div className="content-center">
-                      <Image
-                        src={walletAsset.asset.image_url}
-                        alt={walletAsset.asset.symbol}
-                        width={40}
-                        height={40}
-                      />
-                    </div>
-                    <div className="flex flex-col text-sm">
-                      <span>{walletAsset.asset.name}</span>
-                      <span>{walletAsset.asset.symbol}</span>
-                    </div>
-                  </div>
+                  <AssetShow asset={walletAsset.asset} />
                 </TableCell>
                 <TableCell>R$ {walletAsset.asset.price}</TableCell>
                 <TableCell>{walletAsset.shares}</TableCell>
                 <TableCell>
-                  <Button color="light" size="sm">
+                  <Button
+                    color="light"
+                    size="sm"
+                    as={Link}
+                    href={`/assets/${walletAsset.asset.symbol}?wallet_id=${wallet_id}`}
+                  >
                     Comprar/Vender
                   </Button>
                 </TableCell>
