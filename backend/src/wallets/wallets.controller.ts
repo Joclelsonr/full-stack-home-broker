@@ -29,7 +29,6 @@ export class WalletsController {
     const wallet = await this.walletsService.findOne(id);
 
     if (!wallet) {
-      console.log('Wallet not found');
       throw new NotFoundException('Wallet not found');
     }
 
