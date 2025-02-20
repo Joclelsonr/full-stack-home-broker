@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Amazon",
+    "symbol": "AMZN",
+    "price": 194,
+    "image": "AMZN.png"
+  },
+  {
+    "name": "Sales Force",
+    "symbol": "CRM",
+    "price": 200,
+    "image": "CRM.png"
+  },
+  {
+    "name": "Google",
+    "symbol": "GOOGL",
+    "price": 300,
+    "image": "GOOGL.png"
+  },
+  {
+    "name": "Meta",
+    "symbol": "META",
+    "price": 400,
+    "image": "META.png"
+  },
+  {
+    "name": "Coca-Cola",
+    "symbol": "KO",
+    "price": 36,
+    "image": "KO.png"
+  },
+  {
+    "name": "McDonalds",
+    "symbol": "MCD",
+    "price": 350,
+    "image": "MCD.png"
+  },
+  {
+    "name": "Mercado Livre",
+    "symbol": "MELI",
+    "price": 123,
+    "image": "MELI.png"
+  },
+  {
+    "name": "Nvidia",
+    "symbol": "NVDA",
+    "price": 369,
+    "image": "NVDA.png"
+  },
+  {
+    "name": "Apple",
+    "symbol": "AAPL",
+    "price": 127,
+    "image": "AAPL.png"
+  },
+  {
+    "name": "Microsoft",
+    "symbol": "MSFT",
+    "price": 250,
+    "image": "MSFT.png"
+  },
+  {}
+]
