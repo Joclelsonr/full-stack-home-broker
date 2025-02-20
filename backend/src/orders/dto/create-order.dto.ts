@@ -2,8 +2,8 @@ export type OrderType = 'BUY' | 'SELL';
 
 export class CreateOrderDto {
   walletId: string;
-  asssetId: string;
+  assetId: string;
   shares: number;
-  price: string;
+  price: number;
   type: OrderType;
 }

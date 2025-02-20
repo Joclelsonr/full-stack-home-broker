@@ -15,7 +15,7 @@ export class OrdersService {
   create(createOrderDto: CreateOrderDto) {
     return this.orderSchema.create({
       wallet: createOrderDto.walletId,
-      asset: createOrderDto.asssetId,
+      asset: createOrderDto.assetId,
       shares: createOrderDto.shares,
       partial: createOrderDto.shares,
       type: createOrderDto.type,
@@ -23,9 +23,9 @@ export class OrdersService {
     });
   }
 
-  findAll(filter: { walletId: string }) {
+  findAll({ walletId }: { walletId: string }) {
     return this.orderSchema
-      .find({ wallet: filter.walletId })
+      .find({ wallet: walletId })
       .populate('asset') as Promise<(Order & { asset: Asset })[]>;
     //.populate(['asset', 'trade']);
   }
