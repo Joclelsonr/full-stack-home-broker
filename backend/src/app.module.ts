@@ -10,7 +10,12 @@ const uri =
   'mongodb://root:root@localhost:27017/hbroker?authSource=admin&directConnection=true';
 
 @Module({
-  imports: [MongooseModule.forRoot(uri), AssetsModule, WalletsModule, OrdersModule],
+  imports: [
+    MongooseModule.forRoot(uri),
+    AssetsModule,
+    WalletsModule,
+    OrdersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
