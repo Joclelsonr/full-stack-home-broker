@@ -38,3 +38,10 @@ export type Order = {
   type: OrderType;
   status: OrderStatus;
 };
+
+export type AssetDaily = {
+  _id: string;
+  asset: Asset;
+  price: number;
+  date: Date;
+};

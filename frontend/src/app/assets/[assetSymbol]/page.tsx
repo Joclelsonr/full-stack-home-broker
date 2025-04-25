@@ -1,4 +1,5 @@
 import { OrderType } from "@/model";
+import { Time } from "lightweight-charts";
 import { Card, Tabs } from "flowbite-react";
 import { AssetShow } from "@/components/AssetShow";
 import { OrderForm } from "@/components/OrderForm";
@@ -6,7 +7,7 @@ import { TabsItem } from "@/components/Tabs";
 import { WalletList } from "@/components/WalletList";
 import { AssetChartComponent } from "./components/AssetChartComponent";
 
-import { getAssetBySymbol, getMyWallet } from "@/queries";
+import { getAssetBySymbol, getAssetDailies, getMyWallet } from "@/queries";
 
 type AssetDashboardProps = {
   params: Promise<{ assetSymbol: string }>;
@@ -29,6 +30,11 @@ export default async function AssetDashboard({
   }
 
   const asset = await getAssetBySymbol(assetSymbol);
+  const assetDailies = await getAssetDailies(assetSymbol);
+  const chartData = assetDailies.map((assetDaily) => ({
+    time: (Date.parse(assetDaily.date.toString()) / 1000) as Time,
+    value: assetDaily.price,
+  }));
 
   return (
     <div className="flex flex-col space-y-5 flex-grow">
@@ -60,7 +66,7 @@ export default async function AssetDashboard({
             </Card>
           </div>
           <div className="col-span-3 flex flex-grow">
-            <AssetChartComponent asset={asset} />
+            <AssetChartComponent asset={asset} data={chartData} />
           </div>
         </div>
       </div>

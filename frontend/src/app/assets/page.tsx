@@ -1,14 +1,7 @@
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from "flowbite-react";
-import { AssetShow } from "@/components/AssetShow";
+import { Table, TableBody, TableHead, TableHeadCell } from "flowbite-react";
+import { AssetsSync } from "@/components/AssetsSync";
 import { WalletList } from "@/components/WalletList";
+import { TableAssetRow } from "./components/TableAssetRow";
 
 import { getAssets, getMyWallet } from "@/queries";
 
@@ -43,21 +36,12 @@ export default async function AssetsListPage({
           </TableHead>
           <TableBody>
             {assets.map((asset, key) => (
-              <TableRow key={key}>
-                <TableCell>
-                  <AssetShow asset={asset} />
-                </TableCell>
-                <TableCell>R$ {asset.price}</TableCell>
-                <TableCell>
-                  <Button color="light" size="sm">
-                    Comprar/Vender
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <TableAssetRow key={key} asset={asset} walletId={wallet_id} />
             ))}
           </TableBody>
         </Table>
       </div>
+      <AssetsSync assetsSymbols={assets.map((asset) => asset.symbol)} />
     </div>
   );
 }
